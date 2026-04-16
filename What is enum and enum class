@@ -1,0 +1,97 @@
+What is an enum class and in which version of c++ it is introduced?
+
+
+Enum class was introduced in C++11
+
+
+what is this old enum ? whats this int conversion, what this enum class doing explain very clearly from the beginning
+
+Enums from the beginning
+1. What problem do enums solve?
+You often need a variable that can only be one of a few fixed choices, not any number.
+Example: A traffic light is only red, yellow, or green — not 7 or -3.
+You could use integers:
+0 = red, 1 = yellow, 2 = green
+But then nothing stops you from writing color = 99 by mistake. Enums exist so the language knows “only these names are valid.”
+
+2. What is a “classic” / “old” enum?
+In C and older C++, you wrote:
+enum Color { Red, Yellow, Green };
+Here:
+• Red, Yellow, Green are constants.
+• Traditionally, Red is really an int under the hood (often 0, 1, 2…).
+• The names Red, Yellow, Green are dumped into the same namespace as your other code (they are not tucked inside Color).
+So you use it like:
+Color c = Red;
+int x = c;      // allowed: c silently becomes an int
+c = 2;          // often allowed or easy to do by mistake (compiler may warn)
+That’s what people mean by “old enum” or unscoped enum: the original C-style rule set.
+
+3. What is “int conversion” here?
+Conversion means: the value is treated as a normal integer without you asking.
+With old enum:
+• Storing the enum in an int → usually allowed automatically.
+• Sometimes mixing raw numbers and enum → too easy; bugs hide.
+So “int conversion” = the enum value silently behaves like an integer, which was convenient but unsafe (wrong numbers, mixing unrelated enums, etc.).
+
+4. What does enum class do differently?
+enum class (C++11) adds two big rules:
+A) Scoped names
+You must write Color::Red, not plain Red.
+So Red doesn’t collide with another Red from a different enum or a variable name. Everything lives under Color.
+B) No silent conversion to int
+enum class Color { Red, Yellow, Green };
+
+Color c = Color::Red;
+int x = c;           // ERROR in C++ — no automatic int conversion
+int x = static_cast<int>(c);  // OK — you explicitly said "treat as int"
+So enum class stops the accidental “it’s just an int” behavior. If you really need a number, you say so with static_cast.
+You also can’t usually assign a random integer to Color without a cast — again, fewer mistakes.
+
+5. Side‑by‑side intuition
+Idea	Old enum	enum class
+How you name values	Red	Color::Red
+Acts like int?	Very easily (implicit)	No (unless you cast)
+Name clashes	Easier	Harder
+
+6. One sentence each
+• Old enum: “Give names to small integers; names leak into scope and often mix with int.”
+• Int conversion: “The value is automatically used as a normal integer without extra syntax.”
+• enum class: “Names live under the enum type, and the type is not silently an int — safer and clearer.”
+
+7. Tiny full example
+// Old style (simplified behavior)
+enum OldColor { OldRed, OldGreen };
+int a = OldRed;     // works: OldRed is int-like
+
+// C++11 scoped enum
+enum class NewColor { Red, Green };
+NewColor c = NewColor::Red;
+// int b = c;       // error — good!
+int b = static_cast<int>(c);  // explicit: you meant it
+That’s the whole story from zero: why enums exist, what old enum did, what int conversion meant, and what enum class fixes.
+
+
+
+Practical :
+Rasnika:
+
+
+1)// Online C++ compiler to run C++ program online
+#include <iostream>
+
+int main() {
+    // Write C++ code here
+    std::cout << "Try programiz.pro" <<std::endl;
+    enum Color{red,yellow,green};
+    int x=red;
+    std::cout<<"x value is ";
+    std::cout<<x<<std::endl;
+
+    return 0;
+}
+
+
+Try programiz.pro
+x value is 0
+

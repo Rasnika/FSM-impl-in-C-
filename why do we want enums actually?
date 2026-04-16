@@ -36,3 +36,21 @@ An enum is a language feature that gives human-readable names to a small, closed
 
 Even shorter (one line)
 An enum is a type whose values are chosen from a fixed, named list instead of any integer.
+
+
+
+
+when is enums introduced?
+
+It depends what you mean by enums:
+
+In C
+Enumerations (enum { ... }) have been part of C since the ANSI C standard (C89 / C90, late 1980s). So they’ve been in C for decades.
+
+In C++
+Classic enum comes from C and is part of C++ from the first standardized C++ (C++98), so it’s been in C++ since the beginning of the standard.
+
+enum class (scoped enums)
+Scoped enumerations — enum class / enum struct — were added in C++11 (standard published 2011, ISO/IEC 14882:2011).
+
+Bottom line: Named enums → C (C90) and C++98; enum class → C++11.

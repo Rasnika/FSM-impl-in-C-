@@ -1,0 +1,38 @@
+why do we want enums actually?
+
+Why use enums?
+1. Readability
+Code talks in your domain’s words instead of mystery numbers.
+
+Bad: if (status == 2) … — what is 2?
+Good: if (status == OrderStatus::Shipped) … — obvious meaning.
+Enums turn magic numbers into named ideas.
+
+2. Fewer mistakes
+If only Red / Yellow / Green are valid, you don’t want 37 or -1 to slip in. An enum documents “only these possibilities” so wrong values are easier for humans and compilers to catch (especially with enum class).
+
+3. One place to maintain
+All allowed values are listed once. If you add Blue later, you update the enum and search for uses — you’re not hunting scattered literals 0, 1, 2 across files.
+
+4. Clear APIs
+A function can say “argument must be a Color” instead of “some int.” That’s what types are for: communicate intent and catch nonsense early.
+
+5. Patterns that fit real life
+Many things are finite states: day of week, payment status, mode of a machine. Enums model that directly.
+
+In one line: We use enums so code names what we mean, limits choices to valid options, and stays easier to read and safer than raw integers.
+
+
+
+
+
+if you can give a good definition for enums wht would it be?
+
+Short definition
+An enum (enumeration) is a type that defines a fixed set of named constant values, so a variable of that type can only represent one of those names, not an arbitrary number.
+
+Slightly fuller (still one paragraph)
+An enum is a language feature that gives human-readable names to a small, closed list of alternatives (like states, modes, or categories). It replaces magic numbers with meaningful identifiers, makes intent clear in APIs, and helps restrict values to only what the program allows.
+
+Even shorter (one line)
+An enum is a type whose values are chosen from a fixed, named list instead of any integer.
